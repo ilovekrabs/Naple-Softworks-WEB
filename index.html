@@ -1,8 +1,112 @@
-<html> 
-  <head>
-    <title>Naple Softworks</title>
-  </head>
-  <body>
-    <h1>Naple</h1><h1>Softworks</h1>
-  </body>
-</html>
+<html><head><title>Naple Softworks</title>
+<style>
+  body {
+    font-family: 'Courier New', monospace;
+    background-color: #000;
+    color: #00dcff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+  }
+  .construction-container {
+    text-align: center;
+    max-width: 600px;
+  }
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  .ascii-art {
+    font-size: 0.7rem;
+    line-height: 0.7rem;
+    white-space: pre;
+    margin-bottom: 2rem;
+  }
+  @keyframes blink {
+    0% { opacity: 0.5; }
+    100% { opacity: 0; }
+  }
+  .blink {
+    animation: blink 2s infinite;
+  }
+  .matrix-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+</style>
+</head>
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <div class="construction-container">
+    <div class="logo">
+      	Naple Softworks
+    </div>
+    <div class="ascii-art">
+   _____                _                   _   _             
+  / ____|              | |                 | | (_)            
+ | |     ___  _ __  ___| |_ _ __ _   _  ___| |_ _  ___  _ __  
+ | |    / _ \| '_ \/ __| __| '__| | | |/ __| __| |/ _ \| '_ \ 
+ | |___| (_) | | | \__ \ |_| |  | |_| | (__| |_| | (_) | | | |
+  \_____\___/|_| |_|___/\__|_|   \__,_|\___|\__|_|\___/|_| |_|
+    </div>
+    <h1>Site Under Construction</h1>
+    <p>Come back later.</p>
+    <p>In the meantime, why not ponder the nature of existence? Are we all just bits in a cosmic computer?</p>
+    <p class="blink">> System message: COMING SOON?...I don't know.</p>
+  </div>
+
+  <script>
+    // Matrix rain effect
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const nums = '0123456789';
+    const alphabet = katakana + latin + nums;
+
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+
+    const rainDrops = [];
+
+    for (let x = 0; x < columns; x++) {
+      rainDrops[x] = 1;
+    }
+
+    const draw = () => {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#00dcff';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < rainDrops.length; i++) {
+        const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+        ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+        if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          rainDrops[i] = 0;
+        }
+        rainDrops[i]++;
+      }
+    };
+
+    setInterval(draw, 30);
+  </script>
+</body></html>
